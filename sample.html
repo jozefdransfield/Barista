@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore.js"></script>
+		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css"/>
+		<script src="barista.js"></script>
+		<style>
+			#barista {
+				font-size: 30px;
+				font-weight: bold;
+				margin: 200px auto;
+				text-align: center;
+			}
+			#barista span {
+				padding: 15px;
+				height: 50px;
+				background-color: skyblue;
+				vertical-align: middle;
+			}
+		</style>
+		
+		<script>
+		
+		
+		
+		$(document).ready(function() {		
+			animate();
+		});
+		function animate() {
+				var sampleQueue = new Barista();
+
+				$('#barista span').each(function() {
+					var letter = $(this);
+						sampleQueue.enqueue(function() {
+							letter.animate({
+						    	fontSize: "+=20"			   
+						  	}, 200, function() {
+						    	sampleQueue.next();
+						  	});
+						});
+						sampleQueue.enqueue(function() {
+							letter.animate({
+						    	fontSize: "-=20"			   
+						  	}, 200, function() {
+						    	sampleQueue.next();
+						  	});
+						});
+				});
+				sampleQueue.enqueue(function() {
+					window.setTimeout(function() {
+						sampleQueue.next()
+					}, 1000);
+				})
+				sampleQueue.complete(animate);
+		}
+		</script>
+	</head>
+	<body>
+		
+		<div id="barista">
+			<span>B</span>
+			<span>a</span>
+			<span>r</span>
+			<span>i</span>
+			<span>s</span>
+			<span>t</span>
+			<span>a</span>
+		</div>
+		
+	</body>
+</html>
